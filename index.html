@@ -59,7 +59,7 @@
           max-height: 400px;
         }
       }
-      /* Custom scrollbar for AI response area */
+      /* Custom scrollbar for output area */
       .ai-response::-webkit-scrollbar {
         width: 8px;
       }
@@ -92,14 +92,14 @@
 
         <main class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
 
-            <!-- AI Coach Section (New Feature) -->
+            <!-- Logic Coach Section (Replaced AI) -->
             <section class="md:col-span-2 bg-gradient-to-r from-brand-card to-slate-800 rounded-2xl shadow-lg p-6 lg:p-8 border border-brand-primary/50 relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-4 opacity-5 text-9xl">🤖</div>
+                <div class="absolute top-0 right-0 p-4 opacity-5 text-9xl">⚡</div>
                 
                 <h2 class="text-2xl font-bold text-white mb-2 flex items-center">
-                    <span class="text-2xl mr-2">✨</span> AI Performance Coach
+                    <span class="text-2xl mr-2">⚡</span> Smart Logic Coach
                 </h2>
-                <p class="text-gray-400 mb-6">Powered by Gemini. Ask specifically about your 4000kcal plan.</p>
+                <p class="text-gray-400 mb-6">Instant diet tools. No API key required.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Input Tools -->
@@ -110,8 +110,8 @@
                             <h3 class="font-bold text-brand-secondary mb-2">🔄 Smart Meal Swapper</h3>
                             <p class="text-xs text-gray-400 mb-2">Don't have an ingredient? Find a macro-match.</p>
                             <div class="flex gap-2">
-                                <input type="text" id="swapInput" placeholder="e.g. Salmon, 200g Chicken" class="w-full bg-brand-bg border border-gray-600 rounded px-3 py-2 text-sm focus:border-brand-primary focus:outline-none text-white">
-                                <button onclick="runMealSwap()" class="bg-brand-secondary hover:bg-yellow-600 text-black font-bold px-4 py-2 rounded text-sm transition whitespace-nowrap">✨ Swap It</button>
+                                <input type="text" id="swapInput" placeholder="e.g. Chicken, Rice, Oats" class="w-full bg-brand-bg border border-gray-600 rounded px-3 py-2 text-sm focus:border-brand-primary focus:outline-none text-white">
+                                <button onclick="runOfflineSwap()" class="bg-brand-secondary hover:bg-yellow-600 text-black font-bold px-4 py-2 rounded text-sm transition whitespace-nowrap">✨ Swap It</button>
                             </div>
                         </div>
 
@@ -119,18 +119,18 @@
                         <div class="bg-brand-bg/50 p-4 rounded-xl border border-gray-700 flex justify-between items-center">
                             <div>
                                 <h3 class="font-bold text-brand-primary mb-1">🔥 Match Day Hype</h3>
-                                <p class="text-xs text-gray-400">Need a pre-game motivational boost?</p>
+                                <p class="text-xs text-gray-400">Get a random motivational quote.</p>
                             </div>
-                            <button onclick="runHype()" class="bg-brand-primary hover:bg-blue-700 text-white font-bold px-4 py-2 rounded text-sm transition">✨ Hype Me Up</button>
+                            <button onclick="runOfflineHype()" class="bg-brand-primary hover:bg-blue-700 text-white font-bold px-4 py-2 rounded text-sm transition">✨ Hype Me Up</button>
                         </div>
 
                         <!-- Tool 3: Recipe Gen -->
                          <div class="bg-brand-bg/50 p-4 rounded-xl border border-gray-700">
-                            <h3 class="font-bold text-brand-success mb-2">🍳 Empty Fridge Recipe</h3>
-                            <p class="text-xs text-gray-400 mb-2">Got random ingredients? Make a high-cal meal.</p>
+                            <h3 class="font-bold text-brand-success mb-2">🍳 Quick Recipe Builder</h3>
+                            <p class="text-xs text-gray-400 mb-2">Got random ingredients? Get a high-cal idea.</p>
                             <div class="flex gap-2">
-                                <input type="text" id="recipeInput" placeholder="e.g. Eggs, rice, spinach" class="w-full bg-brand-bg border border-gray-600 rounded px-3 py-2 text-sm focus:border-brand-primary focus:outline-none text-white">
-                                <button onclick="runRecipe()" class="bg-brand-success hover:bg-green-700 text-white font-bold px-4 py-2 rounded text-sm transition whitespace-nowrap">✨ Cook</button>
+                                <input type="text" id="recipeInput" placeholder="e.g. Eggs, Spinach" class="w-full bg-brand-bg border border-gray-600 rounded px-3 py-2 text-sm focus:border-brand-primary focus:outline-none text-white">
+                                <button onclick="runOfflineRecipe()" class="bg-brand-success hover:bg-green-700 text-white font-bold px-4 py-2 rounded text-sm transition whitespace-nowrap">✨ Build</button>
                             </div>
                         </div>
 
@@ -140,13 +140,9 @@
                     <div class="bg-brand-bg border border-gray-700 rounded-xl p-4 h-full min-h-[250px] relative flex flex-col">
                         <div class="flex justify-between items-center mb-2 border-b border-gray-800 pb-2">
                             <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Coach Output</span>
-                            <span id="loadingIndicator" class="hidden text-brand-accent text-xs animate-pulse">Thinking...</span>
                         </div>
                         <div id="aiOutput" class="ai-response text-sm text-gray-300 leading-relaxed overflow-y-auto flex-grow prose prose-invert max-w-none">
-                            <p class="text-gray-600 italic">Select a tool on the left to get started. I know your diet targets (3986kcal) and schedule.</p>
-                        </div>
-                        <div class="mt-2 text-right">
-                             <button onclick="clearKey()" class="text-[10px] text-gray-600 hover:text-red-400 underline">Reset API Key</button>
+                            <p class="text-gray-600 italic">Select a tool on the left. I'm ready to help you hit 4000kcal.</p>
                         </div>
                     </div>
                 </div>
@@ -273,120 +269,92 @@
         </main>
 
         <footer class="mt-10 text-center text-gray-500 text-sm">
-            Generated for Myles • 2025 Plan • Powered by Gemini API
+            Generated for Myles • 2025 Plan • Self-Contained Logic
         </footer>
 
     </div>
 
-    <!-- Gemini API Logic -->
+    <!-- Offline Logic Script -->
     <script>
-        // API Configuration
-        // Note: On GitHub Pages/Static hosting, the environment variable won't exist.
-        // We will prompt the user for their key if this is empty.
-        let apiKey = ""; 
+        const outputDiv = document.getElementById('aiOutput');
 
-        const systemPrompt = "You are an elite sports nutrition coach for Myles, a rugby player. His targets are: 3986 kcal, 557g Carbs, 190g Protein, 111g Fat. His match day is Wednesday. His intense training day is Friday. He follows an 80/20 rule (80% whole food). Be concise, motivational, and practical. Use markdown formatting.";
+        // --- DATA LIBRARIES ---
+        
+        const swaps = {
+            'chicken': "Swap **Chicken** for: \n\n* **Turkey Breast** (Almost identical macros)\n* **Lean Beef Mince (5%)** (Higher Iron/Creatine)\n* **White Fish/Cod** (Lighter, digests faster)",
+            'beef': "Swap **Beef** for: \n\n* **Chicken Thighs** (Similar fat content)\n* **Salmon** (Higher Omega 3, great for inflammation)\n* **Venison** (Very lean game meat)",
+            'rice': "Swap **Rice** for: \n\n* **Pasta** (Calorically dense, great for bulking)\n* **Potatoes** (High satiety, need roughly 4x weight of rice)\n* **Bagels** (Fast digesting carbs)",
+            'oats': "Swap **Oats** for: \n\n* **Cream of Rice** (Easier digestion pre-training)\n* **Weetabix/Cornflakes** (Faster carbs)\n* **Granola** (Higher calorie density)",
+            'egg': "Swap **Eggs** for: \n\n* **Greek Yogurt** (High casein/protein)\n* **Whey Protein Shake** (Convenience)\n* **Tofu Scramble** (Plant based option)",
+            'salmon': "Swap **Salmon** for: \n\n* **Mackerel** (Similar healthy fats)\n* **Steak** (Fatty cut like Ribeye)\n* **Avocado + Chicken** (Matches the protein + fat combo)"
+        };
 
-        async function getApiKey() {
-            // 1. Check if hardcoded (dev env)
-            if (apiKey) return apiKey;
+        const hypeQuotes = [
+            "Pain is temporary. Victory is forever. Go smash it.",
+            "You didn't eat 557g of carbs to play small. Dominate the contact area.",
+            "Clear eyes, full hearts, can't lose.",
+            "Your body is a machine. You've fuelled it. Now drive it.",
+            "Every collision is a choice. Choose violence (legally).",
+            "Wednesday is Payday. Go collect.",
+            "Fatigue makes cowards of us all. You are fuelled to outlast them.",
+            "Head in the fridge, heart in the fire.",
+            "Be the player they hate playing against.",
+            "80 minutes of work. A lifetime of glory. Let's go."
+        ];
 
-            // 2. Check local storage (user entered previously)
-            const storedKey = localStorage.getItem('myles_gemini_key');
-            if (storedKey) return storedKey;
+        // --- LOGIC FUNCTIONS ---
 
-            // 3. Prompt user
-            const userKey = prompt("To use the AI Coach features, please enter your Gemini API Key:\n(It will be saved locally on your device only)");
-            
-            if (userKey) {
-                localStorage.setItem('myles_gemini_key', userKey);
-                return userKey;
-            }
-            return null;
-        }
-
-        function clearKey() {
-            localStorage.removeItem('myles_gemini_key');
-            alert("API Key removed.");
-        }
-
-        async function callGemini(userPrompt) {
-            const outputDiv = document.getElementById('aiOutput');
-            const loader = document.getElementById('loadingIndicator');
-            
-            const key = await getApiKey();
-            if (!key) {
-                outputDiv.innerHTML = `<span class="text-yellow-500">API Key required. Please reload or click a tool to enter it.</span>`;
-                return;
-            }
-
-            outputDiv.innerHTML = '';
-            loader.classList.remove('hidden');
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${key}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{ text: userPrompt }]
-                        }],
-                        systemInstruction: {
-                            parts: [{ text: systemPrompt }]
-                        }
-                    })
-                });
-
-                if (!response.ok) {
-                     if (response.status === 400 || response.status === 403) {
-                        localStorage.removeItem('myles_gemini_key'); // Clear bad key
-                        throw new Error('Invalid API Key. Please try again.');
-                     }
-                    throw new Error('API call failed');
-                }
-
-                const data = await response.json();
-                const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
-                
-                // Parse markdown and display
-                outputDiv.innerHTML = marked.parse(text);
-
-            } catch (error) {
-                console.error(error);
-                outputDiv.innerHTML = `<span class="text-red-400">Error: ${error.message}</span>`;
-            } finally {
-                loader.classList.add('hidden');
-            }
-        }
-
-        function runMealSwap() {
-            const input = document.getElementById('swapInput').value;
+        function runOfflineSwap() {
+            const input = document.getElementById('swapInput').value.toLowerCase();
             if (!input) {
-                alert("Please enter a food to swap.");
+                outputDiv.innerHTML = `<span class="text-yellow-500">Please enter a food to swap.</span>`;
                 return;
             }
-            const prompt = `Myles needs to swap "${input}" for something else. Suggest 2 alternatives that have similar macronutrients (Protein/Carb/Fat content) to ensure he hits his 4000kcal target. Keep it simple.`;
-            callGemini(prompt);
+
+            // Simple keyword matching
+            let found = false;
+            for (const key in swaps) {
+                if (input.includes(key)) {
+                    outputDiv.innerHTML = marked.parse(swaps[key]);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                outputDiv.innerHTML = marked.parse(`I don't have a specific swap for "**${input}**" in my database yet.\n\n**General Rule:**\n* **Protein?** Swap for Chicken, Beef, Turkey, Fish, or Tofu.\n* **Carb?** Swap for Rice, Pasta, Potato, Oats, or Bread.\n* **Fat?** Swap for Avocado, Nuts, Olive Oil, or Cheese.`);
+            }
         }
 
-        function runHype() {
-            const prompt = `It's game day or a heavy training day. Give Myles a short, aggressive, rugby-focused motivational speech. Remind him about the 557g of carbs he's eaten to fuel this. Tell him to dominate contact. Max 3 sentences.`;
-            callGemini(prompt);
+        function runOfflineHype() {
+            const randomQuote = hypeQuotes[Math.floor(Math.random() * hypeQuotes.length)];
+            outputDiv.innerHTML = marked.parse(`### 🔥 COACH SAYS:\n\n> "${randomQuote}"`);
         }
 
-        function runRecipe() {
+        function runOfflineRecipe() {
             const input = document.getElementById('recipeInput').value;
             if (!input) {
-                 alert("Please enter ingredients.");
-                 return;
+                outputDiv.innerHTML = `<span class="text-yellow-500">Please enter ingredients.</span>`;
+                return;
             }
-            const prompt = `Myles has these ingredients: "${input}". Create a high-calorie (approx 800-1000kcal) meal recipe using these and basic pantry staples to help him reach his daily goals. List macros roughly.`;
-            callGemini(prompt);
+
+            // Mad-libs style generator
+            const recipe = `### 🍳 Quick High-Calorie Builder
+            
+            Here is a way to use **${input}** to hit your calories:
+            
+            1.  **Prep:** Chop up your ${input} and any other veg you have.
+            2.  **Base:** Cook a large portion (100g dry weight) of **Pasta** or **Rice**.
+            3.  **Fat:** Fry everything in **1 tbsp Butter or Olive Oil** (adds ~120kcal).
+            4.  **Protein:** Ensure you have at least 200g of meat/eggs in the mix.
+            5.  **Finish:** Top with **Cheese** or a **Creamy Sauce** to boost calories easily.
+            
+            **Estimated Macros:** ~800-900 kcal | High Carb | High Protein`;
+
+            outputDiv.innerHTML = marked.parse(recipe);
         }
 
-        // --- Existing Chart Logic Below ---
+        // --- CHART LOGIC (UNCHANGED) ---
         document.addEventListener('DOMContentLoaded', () => {
             const tooltipTitleCallback = (tooltipItems) => {
                 const item = tooltipItems[0];
